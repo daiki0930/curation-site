@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Box,
@@ -12,90 +12,70 @@ import {
   SimpleGrid,
   Card,
   Separator,
-} from '@chakra-ui/react'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { useState, useEffect } from 'react'
-import { supabase, type Product, type Review } from '@/lib/supabase'
-import { useParams } from 'next/navigation'
-import Link from 'next/link'
-import { FiArrowLeft, FiHeart, FiStar } from 'react-icons/fi'
-import { useSession } from 'next-auth/react'
+} from "@chakra-ui/react";
+import { Header } from "@/src/components/Header";
+import { Footer } from "@/src/components/Footer";
+import { useState, useEffect, useCallback } from "react";
+import { type Product, type Review } from "@/lib/types";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { FiArrowLeft, FiHeart, FiStar } from "react-icons/fi";
+import { useSession } from "next-auth/react";
+
+type ProductWithReviews = Product & {
+  reviews: Review[];
+};
 
 export default function ProductDetailPage() {
-  const params = useParams()
-  const { data: session } = useSession()
-  const [product, setProduct] = useState<Product | null>(null)
-  const [reviews, setReviews] = useState<Review[]>([])
-  const [loading, setLoading] = useState(true)
-  const [isFavorite, setIsFavorite] = useState(false)
+  const params = useParams();
+  const { data: session } = useSession();
+  const [product, setProduct] = useState<ProductWithReviews | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const fetchProduct = useCallback(async (id: string) => {
+    try {
+      const response = await fetch(`/api/products/${id}`);
+      if (!response.ok) throw new Error("Failed to fetch");
+      const data = await response.json();
+      setProduct(data);
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (params.id) {
-      fetchProduct(params.id as string)
-      fetchReviews(params.id as string)
+      fetchProduct(params.id as string);
     }
-  }, [params.id])
-
-  const fetchProduct = async (id: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('id', id)
-        .single()
-
-      if (error) throw error
-      setProduct(data)
-    } catch (error) {
-      console.error('Error fetching product:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fetchReviews = async (productId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('reviews')
-        .select('*')
-        .eq('product_id', productId)
-        .order('created_at', { ascending: false })
-
-      if (error) throw error
-      setReviews(data || [])
-    } catch (error) {
-      console.error('Error fetching reviews:', error)
-    }
-  }
+  }, [params.id, fetchProduct]);
 
   const toggleFavorite = async () => {
-    if (!session || !product) return
+    if (!session || !product) return;
 
     try {
-      if (isFavorite) {
-        // お気に入りから削除
-        await supabase
-          .from('favorites')
-          .delete()
-          .eq('user_id', session.user?.id)
-          .eq('product_id', product.id)
-        setIsFavorite(false)
-      } else {
-        // お気に入りに追加
-        await supabase
-          .from('favorites')
-          .insert({ user_id: session.user?.id, product_id: product.id })
-        setIsFavorite(true)
+      const method = isFavorite ? "DELETE" : "POST";
+      const response = await fetch(`/api/favorites`, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: product.id }),
+      });
+
+      if (response.ok) {
+        setIsFavorite(!isFavorite);
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error)
+      console.error("Error toggling favorite:", error);
     }
-  }
+  };
 
-  const averageRating = reviews.length > 0
-    ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
-    : 0
+  const reviews = product?.reviews || [];
+  const averageRating =
+    reviews.length > 0
+      ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+      : 0;
 
   if (loading) {
     return (
@@ -106,7 +86,7 @@ export default function ProductDetailPage() {
         </Container>
         <Footer />
       </Box>
-    )
+    );
   }
 
   if (!product) {
@@ -115,13 +95,24 @@ export default function ProductDetailPage() {
         <Header />
         <Container maxW="container.xl" py={8}>
           <Text>商品が見つかりませんでした</Text>
-          <Button as={Link} href="/products" mt={4}>
-            商品一覧に戻る
-          </Button>
+          <Link href="/products" style={{ textDecoration: "none" }}>
+            <Box
+              display="inline-block"
+              mt={4}
+              bg="gray.100"
+              color="gray.800"
+              px={4}
+              py={2}
+              borderRadius="md"
+              _hover={{ bg: "gray.200" }}
+            >
+              商品一覧に戻る
+            </Box>
+          </Link>
         </Container>
         <Footer />
       </Box>
-    )
+    );
   }
 
   return (
@@ -129,21 +120,24 @@ export default function ProductDetailPage() {
       <Header />
 
       <Container maxW="container.xl" py={8}>
-        <Button
-          as={Link}
-          href="/products"
-          variant="ghost"
-          leftIcon={<FiArrowLeft />}
-          mb={6}
-        >
-          商品一覧に戻る
-        </Button>
+        <Link href="/products" style={{ textDecoration: "none" }}>
+          <Box
+            display="inline-flex"
+            alignItems="center"
+            mb={6}
+            color="gray.600"
+            _hover={{ color: "gray.800" }}
+          >
+            <FiArrowLeft style={{ marginRight: "8px" }} />
+            商品一覧に戻る
+          </Box>
+        </Link>
 
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={10} mb={12}>
           {/* 商品画像 */}
           <Box>
             <Image
-              src={product.image_url || '/placeholder.png'}
+              src={product.imageUrl || "/placeholder.png"}
               alt={product.title}
               borderRadius="lg"
               width="100%"
@@ -166,12 +160,16 @@ export default function ProductDetailPage() {
                 {[...Array(5)].map((_, i) => (
                   <FiStar
                     key={i}
-                    fill={i < Math.floor(averageRating) ? 'currentColor' : 'none'}
+                    fill={
+                      i < Math.floor(averageRating) ? "currentColor" : "none"
+                    }
                   />
                 ))}
               </Stack>
               <Text color="gray.600">
-                {averageRating > 0 ? `${averageRating.toFixed(1)} (${reviews.length}件)` : 'レビューなし'}
+                {averageRating > 0
+                  ? `${averageRating.toFixed(1)} (${reviews.length}件)`
+                  : "レビューなし"}
               </Text>
             </Stack>
 
@@ -195,11 +193,11 @@ export default function ProductDetailPage() {
                 variant="outline"
                 colorScheme="red"
                 size="lg"
-                leftIcon={<FiHeart />}
                 onClick={toggleFavorite}
                 disabled={!session}
               >
-                {isFavorite ? 'お気に入り解除' : 'お気に入り'}
+                <FiHeart style={{ marginRight: "8px" }} />
+                {isFavorite ? "お気に入り解除" : "お気に入り"}
               </Button>
             </Stack>
 
@@ -236,13 +234,13 @@ export default function ProductDetailPage() {
                         {[...Array(5)].map((_, i) => (
                           <FiStar
                             key={i}
-                            fill={i < review.rating ? 'currentColor' : 'none'}
+                            fill={i < review.rating ? "currentColor" : "none"}
                             size={16}
                           />
                         ))}
                       </Stack>
                       <Text fontSize="sm" color="gray.500">
-                        {new Date(review.created_at).toLocaleDateString('ja-JP')}
+                        {new Date(review.createdAt).toLocaleDateString("ja-JP")}
                       </Text>
                     </Stack>
                     <Text color="gray.700">{review.comment}</Text>
@@ -256,5 +254,5 @@ export default function ProductDetailPage() {
 
       <Footer />
     </Box>
-  )
+  );
 }

@@ -22,14 +22,14 @@ export function Footer() {
 
           <Stack gap={4}>
             <Text fontWeight="bold">リンク</Text>
-            <Link href="/products">
-              <ChakraLink fontSize="sm">商品一覧</ChakraLink>
+            <Link href="/products" style={{ fontSize: '14px' }}>
+              商品一覧
             </Link>
-            <Link href="/about">
-              <ChakraLink fontSize="sm">私たちについて</ChakraLink>
+            <Link href="/about" style={{ fontSize: '14px' }}>
+              私たちについて
             </Link>
-            <Link href="/contact">
-              <ChakraLink fontSize="sm">お問い合わせ</ChakraLink>
+            <Link href="/contact" style={{ fontSize: '14px' }}>
+              お問い合わせ
             </Link>
           </Stack>
 

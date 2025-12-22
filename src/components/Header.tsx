@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Flex, Heading, Button, Menu, Stack, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Heading, Button, Menu, Stack } from '@chakra-ui/react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { FiHeart, FiUser, FiShoppingBag } from 'react-icons/fi'
@@ -12,35 +12,56 @@ export function Header() {
     <Box bg="teal.600" color="white" py={4} boxShadow="md">
       <Container maxW="container.xl">
         <Flex justify="space-between" align="center">
-          <Link href="/">
+          <Link href="/" style={{ textDecoration: 'none' }}>
             <Heading size="lg" cursor="pointer" _hover={{ opacity: 0.8 }}>
               ミスマリスト
             </Heading>
           </Link>
 
           <Stack direction="row" gap={4} align="center">
-            <Link href="/products">
-              <Button variant="ghost" colorScheme="whiteAlpha" leftIcon={<FiShoppingBag />}>
+            <Link href="/products" style={{ textDecoration: 'none' }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                gap={2}
+                px={3}
+                py={2}
+                borderRadius="md"
+                _hover={{ bg: 'whiteAlpha.300' }}
+              >
+                <FiShoppingBag />
                 商品一覧
-              </Button>
+              </Box>
             </Link>
 
             {session ? (
               <>
-                <Link href="/favorites">
-                  <Button variant="ghost" colorScheme="whiteAlpha" leftIcon={<FiHeart />}>
+                <Link href="/favorites" style={{ textDecoration: 'none' }}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    px={3}
+                    py={2}
+                    borderRadius="md"
+                    _hover={{ bg: 'whiteAlpha.300' }}
+                  >
+                    <FiHeart />
                     お気に入り
-                  </Button>
+                  </Box>
                 </Link>
 
                 <Menu.Root>
                   <Menu.Trigger asChild>
-                    <Button variant="ghost" colorScheme="whiteAlpha" leftIcon={<FiUser />}>
-                      {session.user?.name || session.user?.email}
+                    <Button variant="ghost" color="white" _hover={{ bg: 'whiteAlpha.300' }}>
+                      <Flex align="center" gap={2}>
+                        <FiUser />
+                        {session.user?.name || session.user?.email}
+                      </Flex>
                     </Button>
                   </Menu.Trigger>
                   <Menu.Content>
-                    <Menu.Item value="profile">
+                    <Menu.Item value="profile" asChild>
                       <Link href="/profile">プロフィール</Link>
                     </Menu.Item>
                     <Menu.Item value="signout" onClick={() => signOut()}>
@@ -50,7 +71,7 @@ export function Header() {
                 </Menu.Root>
               </>
             ) : (
-              <Button colorScheme="whiteAlpha" onClick={() => signIn()}>
+              <Button bg="white" color="teal.600" _hover={{ bg: 'whiteAlpha.900' }} onClick={() => signIn()}>
                 ログイン
               </Button>
             )}
