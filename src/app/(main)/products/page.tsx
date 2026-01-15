@@ -57,10 +57,10 @@ export default function ProductsPage() {
   );
 
   return (
-    <Box minH="100vh" bg="gray.50">
+    <Box minH="100vh" bg="gray.50" _dark={{ bg: 'gray.900' }}>
       <Header />
 
-      <Box bg="teal.600" color="white" py={12}>
+      <Box bg="gray.900" _dark={{ bg: 'gray.800' }} color="white" py={12}>
         <Container maxW="container.xl">
           <Heading size="2xl" mb={2}>
             商品一覧
@@ -81,12 +81,15 @@ export default function ProductsPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
               size="lg"
               pl={10}
+              bg="white"
+              _dark={{ bg: 'gray.800', borderColor: 'gray.700' }}
             />
             <Box
               position="absolute"
               left={3}
               top="50%"
               transform="translateY(-50%)"
+              color="gray.500"
             >
               <FiSearch />
             </Box>
@@ -95,6 +98,8 @@ export default function ProductsPage() {
             <NativeSelect.Field
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              bg="white"
+              _dark={{ bg: 'gray.800', borderColor: 'gray.700' }}
             >
               <option value="all">すべてのカテゴリ</option>
               <option value="electronics">電化製品</option>
@@ -107,6 +112,8 @@ export default function ProductsPage() {
             <NativeSelect.Field
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
+              bg="white"
+              _dark={{ bg: 'gray.800', borderColor: 'gray.700' }}
             >
               <option value="newest">新着順</option>
               <option value="price_low">価格が安い順</option>
@@ -117,7 +124,7 @@ export default function ProductsPage() {
 
         {/* 商品グリッド */}
         {loading ? (
-          <Text textAlign="center" py={10}>
+          <Text textAlign="center" py={10} color="gray.500">
             読み込み中...
           </Text>
         ) : filteredProducts.length === 0 ? (
@@ -135,6 +142,10 @@ export default function ProductsPage() {
               <Card.Root
                 key={product.id}
                 overflow="hidden"
+                bg="white"
+                _dark={{ bg: 'gray.800' }}
+                shadow="md"
+                borderRadius="lg"
                 _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
                 transition="all 0.2s"
               >
@@ -151,7 +162,7 @@ export default function ProductsPage() {
                       position="absolute"
                       top={2}
                       right={2}
-                      colorScheme="red"
+                      colorScheme="green"
                       fontSize="sm"
                     >
                       注目
@@ -159,19 +170,26 @@ export default function ProductsPage() {
                   )}
                 </Box>
                 <Card.Body>
-                  <Badge colorScheme="teal" mb={2}>
+                  <Badge
+                    mb={2}
+                    bg="gray.200"
+                    _dark={{ bg: 'gray.700' }}
+                    color="gray.700"
+                    _darkColor="gray.300"
+                  >
                     {product.category}
                   </Badge>
-                  <Heading size="md" mb={2} lineClamp={1}>
+                  <Heading size="md" mb={2} lineClamp={1} color="gray.800" _dark={{ color: 'gray.100' }}>
                     {product.title}
                   </Heading>
-                  <Text color="gray.600" lineClamp={2} mb={4} fontSize="sm">
+                  <Text color="gray.500" _dark={{ color: 'gray.400' }} lineClamp={2} mb={4} fontSize="sm">
                     {product.description}
                   </Text>
                   <Text
                     fontSize="2xl"
                     fontWeight="bold"
-                    color="teal.600"
+                    color="gray.900"
+                    _dark={{ color: 'gray.100' }}
                     mb={4}
                   >
                     ¥{product.price.toLocaleString()}
@@ -181,15 +199,17 @@ export default function ProductsPage() {
                     style={{ textDecoration: "none", display: "block" }}
                   >
                     <Box
-                      bg="teal.500"
+                      bg="gray.900"
+                      _dark={{ bg: 'gray.100' }}
                       color="white"
                       py={2}
                       textAlign="center"
                       fontWeight="semibold"
                       borderRadius="md"
-                      _hover={{ bg: "teal.600" }}
+                      transition="all 0.2s"
+                      _hover={{ bg: "gray.800", _dark: { bg: 'gray.200' } }}
                     >
-                      詳細を見る
+                      <Text color="white" _dark={{ color: 'gray.900' }}>詳細を見る</Text>
                     </Box>
                   </Link>
                 </Card.Body>

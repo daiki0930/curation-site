@@ -79,10 +79,10 @@ export default function ProductDetailPage() {
 
   if (loading) {
     return (
-      <Box minH="100vh" bg="gray.50">
+      <Box minH="100vh" bg="gray.50" _dark={{ bg: 'gray.900' }}>
         <Header />
         <Container maxW="container.xl" py={8}>
-          <Text>読み込み中...</Text>
+          <Text color="gray.500">読み込み中...</Text>
         </Container>
         <Footer />
       </Box>
@@ -91,20 +91,23 @@ export default function ProductDetailPage() {
 
   if (!product) {
     return (
-      <Box minH="100vh" bg="gray.50">
+      <Box minH="100vh" bg="gray.50" _dark={{ bg: 'gray.900' }}>
         <Header />
         <Container maxW="container.xl" py={8}>
-          <Text>商品が見つかりませんでした</Text>
+          <Text color="gray.800" _dark={{ color: 'gray.100' }}>商品が見つかりませんでした</Text>
           <Link href="/products" style={{ textDecoration: "none" }}>
             <Box
               display="inline-block"
               mt={4}
               bg="gray.100"
+              _dark={{ bg: 'gray.800' }}
               color="gray.800"
+              _darkColor="gray.100"
               px={4}
               py={2}
               borderRadius="md"
-              _hover={{ bg: "gray.200" }}
+              transition="all 0.2s"
+              _hover={{ bg: "gray.200", _dark: { bg: 'gray.700' } }}
             >
               商品一覧に戻る
             </Box>
@@ -116,7 +119,7 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <Box minH="100vh" bg="gray.50">
+    <Box minH="100vh" bg="gray.50" _dark={{ bg: 'gray.900' }}>
       <Header />
 
       <Container maxW="container.xl" py={8}>
@@ -126,7 +129,9 @@ export default function ProductDetailPage() {
             alignItems="center"
             mb={6}
             color="gray.600"
-            _hover={{ color: "gray.800" }}
+            _dark={{ color: 'gray.400' }}
+            transition="all 0.2s"
+            _hover={{ color: "gray.800", _dark: { color: 'gray.200' } }}
           >
             <FiArrowLeft style={{ marginRight: "8px" }} />
             商品一覧に戻る
@@ -143,17 +148,18 @@ export default function ProductDetailPage() {
               width="100%"
               height="500px"
               objectFit="cover"
+              shadow="md"
             />
           </Box>
 
           {/* 商品情報 */}
           <Stack gap={6}>
             {product.featured && (
-              <Badge colorScheme="red" fontSize="md" width="fit-content">
+              <Badge colorScheme="green" fontSize="md" width="fit-content">
                 注目商品
               </Badge>
             )}
-            <Heading size="2xl">{product.title}</Heading>
+            <Heading size="2xl" color="gray.800" _dark={{ color: 'gray.100' }}>{product.title}</Heading>
 
             <Stack direction="row" align="center" gap={2}>
               <Stack direction="row" color="yellow.400">
@@ -166,28 +172,43 @@ export default function ProductDetailPage() {
                   />
                 ))}
               </Stack>
-              <Text color="gray.600">
+              <Text color="gray.500" _dark={{ color: 'gray.400' }}>
                 {averageRating > 0
                   ? `${averageRating.toFixed(1)} (${reviews.length}件)`
                   : "レビューなし"}
               </Text>
             </Stack>
 
-            <Text fontSize="3xl" fontWeight="bold" color="teal.600">
+            <Text fontSize="3xl" fontWeight="bold" color="gray.900" _dark={{ color: 'gray.100' }}>
               ¥{product.price.toLocaleString()}
             </Text>
 
-            <Text fontSize="lg" color="gray.700" lineHeight="tall">
+            <Text fontSize="lg" color="gray.600" _dark={{ color: 'gray.300' }} lineHeight="tall">
               {product.description}
             </Text>
 
-            <Badge colorScheme="blue" fontSize="md" width="fit-content">
+            <Badge
+              fontSize="md"
+              width="fit-content"
+              bg="gray.200"
+              _dark={{ bg: 'gray.700' }}
+              color="gray.700"
+              _darkColor="gray.300"
+            >
               カテゴリ: {product.category}
             </Badge>
 
             <Stack direction="row" gap={4} pt={4}>
-              <Button colorScheme="teal" size="lg" flex={1}>
-                購入する
+              <Button
+                bg="gray.900"
+                _dark={{ bg: 'gray.100' }}
+                color="white"
+                _hover={{ bg: "gray.800", _dark: { bg: 'gray.200' } }}
+                size="lg"
+                flex={1}
+                transition="all 0.2s"
+              >
+                <Text color="white" _dark={{ color: 'gray.900' }}>購入する</Text>
               </Button>
               <Button
                 variant="outline"
@@ -195,6 +216,7 @@ export default function ProductDetailPage() {
                 size="lg"
                 onClick={toggleFavorite}
                 disabled={!session}
+                transition="all 0.2s"
               >
                 <FiHeart style={{ marginRight: "8px" }} />
                 {isFavorite ? "お気に入り解除" : "お気に入り"}
@@ -209,25 +231,33 @@ export default function ProductDetailPage() {
           </Stack>
         </SimpleGrid>
 
-        <Separator my={12} />
+        <Separator my={12} borderColor="gray.200" _dark={{ borderColor: 'gray.700' }} />
 
         {/* レビューセクション */}
         <Box>
-          <Heading size="xl" mb={6}>
+          <Heading size="xl" mb={6} color="gray.800" _dark={{ color: 'gray.100' }}>
             カスタマーレビュー
           </Heading>
 
           {reviews.length === 0 ? (
-            <Card.Root p={8} textAlign="center">
+            <Card.Root p={8} textAlign="center" bg="white" _dark={{ bg: 'gray.800' }} shadow="md" borderRadius="lg">
               <Text color="gray.500">まだレビューがありません</Text>
-              <Button colorScheme="teal" mt={4} disabled={!session}>
-                最初のレビューを書く
+              <Button
+                bg="gray.900"
+                _dark={{ bg: 'gray.100' }}
+                color="white"
+                mt={4}
+                disabled={!session}
+                transition="all 0.2s"
+                _hover={{ bg: "gray.800", _dark: { bg: 'gray.200' } }}
+              >
+                <Text color="white" _dark={{ color: 'gray.900' }}>最初のレビューを書く</Text>
               </Button>
             </Card.Root>
           ) : (
             <Stack gap={4}>
               {reviews.map((review) => (
-                <Card.Root key={review.id} p={6}>
+                <Card.Root key={review.id} p={6} bg="white" _dark={{ bg: 'gray.800' }} shadow="md" borderRadius="lg">
                   <Stack gap={2}>
                     <Stack direction="row" align="center" gap={2}>
                       <Stack direction="row" color="yellow.400">
@@ -243,7 +273,7 @@ export default function ProductDetailPage() {
                         {new Date(review.createdAt).toLocaleDateString("ja-JP")}
                       </Text>
                     </Stack>
-                    <Text color="gray.700">{review.comment}</Text>
+                    <Text color="gray.700" _dark={{ color: 'gray.300' }}>{review.comment}</Text>
                   </Stack>
                 </Card.Root>
               ))}

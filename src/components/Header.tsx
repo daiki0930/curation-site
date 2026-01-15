@@ -9,11 +9,11 @@ export function Header() {
   const { data: session } = useSession()
 
   return (
-    <Box bg="teal.600" color="white" py={4} boxShadow="md">
+    <Box bg="gray.900" _dark={{ bg: 'gray.950' }} color="white" py={4} boxShadow="md">
       <Container maxW="container.xl">
         <Flex justify="space-between" align="center">
           <Link href="/" style={{ textDecoration: 'none' }}>
-            <Heading size="lg" cursor="pointer" _hover={{ opacity: 0.8 }}>
+            <Heading size="lg" cursor="pointer" _hover={{ opacity: 0.8 }} color="white">
               ミスマリスト
             </Heading>
           </Link>
@@ -27,7 +27,9 @@ export function Header() {
                 px={3}
                 py={2}
                 borderRadius="md"
-                _hover={{ bg: 'whiteAlpha.300' }}
+                color="white"
+                transition="all 0.2s"
+                _hover={{ bg: 'whiteAlpha.200' }}
               >
                 <FiShoppingBag />
                 商品一覧
@@ -44,7 +46,9 @@ export function Header() {
                     px={3}
                     py={2}
                     borderRadius="md"
-                    _hover={{ bg: 'whiteAlpha.300' }}
+                    color="white"
+                    transition="all 0.2s"
+                    _hover={{ bg: 'whiteAlpha.200' }}
                   >
                     <FiHeart />
                     お気に入り
@@ -53,7 +57,7 @@ export function Header() {
 
                 <Menu.Root>
                   <Menu.Trigger asChild>
-                    <Button variant="ghost" color="white" _hover={{ bg: 'whiteAlpha.300' }}>
+                    <Button variant="ghost" color="white" transition="all 0.2s" _hover={{ bg: 'whiteAlpha.200' }}>
                       <Flex align="center" gap={2}>
                         <FiUser />
                         {session.user?.name || session.user?.email}
@@ -71,7 +75,14 @@ export function Header() {
                 </Menu.Root>
               </>
             ) : (
-              <Button bg="white" color="teal.600" _hover={{ bg: 'whiteAlpha.900' }} onClick={() => signIn()}>
+              <Button
+                bg="white"
+                color="gray.900"
+                fontWeight="semibold"
+                transition="all 0.2s"
+                _hover={{ bg: 'gray.100' }}
+                onClick={() => signIn()}
+              >
                 ログイン
               </Button>
             )}
