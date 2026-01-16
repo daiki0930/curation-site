@@ -3,8 +3,8 @@ import { Providers } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ミスマリスト - 厳選キュレーションサイト",
-  description: "ミスマリストが厳選した本当に価値のある商品をお届けします",
+  title: "ミニマリスト - 厳選キュレーションサイト",
+  description: "ミニマリストが厳選した本当に価値のある商品をお届けします",
 };
 
 export default function RootLayout({

@@ -1,17 +1,28 @@
-'use client'
+"use client";
 
-import { Box, Container, Flex, Text, Stack, Link as ChakraLink } from '@chakra-ui/react'
-import Link from 'next/link'
-import { FiGithub, FiTwitter, FiInstagram } from 'react-icons/fi'
+import {
+  Box,
+  Container,
+  Flex,
+  Text,
+  Stack,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
+import Link from "next/link";
+import { FiGithub, FiTwitter, FiInstagram } from "react-icons/fi";
 
 export function Footer() {
   return (
     <Box bg="gray.100" color="gray.700" py={10} mt={20}>
       <Container maxW="container.xl">
-        <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" gap={8}>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          justify="space-between"
+          gap={8}
+        >
           <Stack gap={4}>
             <Text fontSize="lg" fontWeight="bold">
-              ミスマリスト
+              ミニマリスト
             </Text>
             <Text fontSize="sm" color="gray.600">
               厳選された本当に価値のある商品を
@@ -22,13 +33,13 @@ export function Footer() {
 
           <Stack gap={4}>
             <Text fontWeight="bold">リンク</Text>
-            <Link href="/products" style={{ fontSize: '14px' }}>
+            <Link href="/products" style={{ fontSize: "14px" }}>
               商品一覧
             </Link>
-            <Link href="/about" style={{ fontSize: '14px' }}>
+            <Link href="/about" style={{ fontSize: "14px" }}>
               私たちについて
             </Link>
-            <Link href="/contact" style={{ fontSize: '14px' }}>
+            <Link href="/contact" style={{ fontSize: "14px" }}>
               お問い合わせ
             </Link>
           </Stack>
@@ -49,12 +60,18 @@ export function Footer() {
           </Stack>
         </Flex>
 
-        <Box mt={8} pt={8} borderTop="1px" borderColor="gray.300" textAlign="center">
+        <Box
+          mt={8}
+          pt={8}
+          borderTop="1px"
+          borderColor="gray.300"
+          textAlign="center"
+        >
           <Text fontSize="sm" color="gray.600">
-            © 2024 ミスマリスト. All rights reserved.
+            © 2024 ミニマリスト. All rights reserved.
           </Text>
         </Box>
       </Container>
     </Box>
-  )
+  );
 }

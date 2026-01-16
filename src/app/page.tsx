@@ -40,13 +40,13 @@ export default function Home() {
   }, [fetchFeaturedProducts]);
 
   return (
-    <Box minH="100vh" bg="gray.50" _dark={{ bg: 'gray.900' }}>
+    <Box minH="100vh" bg="gray.50" _dark={{ bg: "gray.900" }}>
       <Header />
 
       {/* ヒーローセクション */}
       <Box
         bg="white"
-        _dark={{ bg: 'gray.800' }}
+        _dark={{ bg: "gray.800" }}
         py={20}
         textAlign="center"
         position="relative"
@@ -64,19 +64,29 @@ export default function Home() {
           borderRadius="full"
         />
         <Container maxW="container.xl">
-          <Heading size="3xl" mb={6} color="gray.900" _dark={{ color: 'gray.100' }}>
+          <Heading
+            size="3xl"
+            mb={6}
+            color="gray.900"
+            _dark={{ color: "gray.100" }}
+          >
             厳選された商品を、あなたに
           </Heading>
-          <Text fontSize="xl" mb={8} color="gray.500" _dark={{ color: 'gray.400' }}>
-            ミスマリストが選んだ、本当に価値のある商品だけをお届けします
+          <Text
+            fontSize="xl"
+            mb={8}
+            color="gray.500"
+            _dark={{ color: "gray.400" }}
+          >
+            ミニマリストが選んだ、本当に価値のある商品だけをお届けします
           </Text>
           <Link href="/products" style={{ textDecoration: "none" }}>
             <Box
               display="inline-block"
               bg="gray.900"
-              _dark={{ bg: 'gray.100' }}
+              _dark={{ bg: "gray.100" }}
               color="white"
-              _hover={{ bg: "gray.800", _dark: { bg: 'gray.200' } }}
+              _hover={{ bg: "gray.800", _dark: { bg: "gray.200" } }}
               px={8}
               py={3}
               fontSize="lg"
@@ -84,7 +94,9 @@ export default function Home() {
               borderRadius="md"
               transition="all 0.2s"
             >
-              <Text color="white" _dark={{ color: 'gray.900' }}>商品を見る</Text>
+              <Text color="white" _dark={{ color: "gray.900" }}>
+                商品を見る
+              </Text>
             </Box>
           </Link>
         </Container>
@@ -97,11 +109,11 @@ export default function Home() {
             textAlign="center"
             p={6}
             bg="white"
-            _dark={{ bg: 'gray.800' }}
+            _dark={{ bg: "gray.800" }}
             shadow="md"
             borderRadius="lg"
             transition="all 0.2s"
-            _hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
+            _hover={{ shadow: "lg", transform: "translateY(-2px)" }}
           >
             <Card.Body>
               <Box
@@ -113,10 +125,15 @@ export default function Home() {
               >
                 <FiStar />
               </Box>
-              <Heading size="md" mb={3} color="gray.800" _dark={{ color: 'gray.100' }}>
+              <Heading
+                size="md"
+                mb={3}
+                color="gray.800"
+                _dark={{ color: "gray.100" }}
+              >
                 厳選された商品
               </Heading>
-              <Text color="gray.500" _dark={{ color: 'gray.400' }}>
+              <Text color="gray.500" _dark={{ color: "gray.400" }}>
                 専門家が選んだ高品質な商品のみを掲載しています
               </Text>
             </Card.Body>
@@ -126,11 +143,11 @@ export default function Home() {
             textAlign="center"
             p={6}
             bg="white"
-            _dark={{ bg: 'gray.800' }}
+            _dark={{ bg: "gray.800" }}
             shadow="md"
             borderRadius="lg"
             transition="all 0.2s"
-            _hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
+            _hover={{ shadow: "lg", transform: "translateY(-2px)" }}
           >
             <Card.Body>
               <Box
@@ -142,10 +159,15 @@ export default function Home() {
               >
                 <FiTrendingUp />
               </Box>
-              <Heading size="md" mb={3} color="gray.800" _dark={{ color: 'gray.100' }}>
+              <Heading
+                size="md"
+                mb={3}
+                color="gray.800"
+                _dark={{ color: "gray.100" }}
+              >
                 トレンドを先取り
               </Heading>
-              <Text color="gray.500" _dark={{ color: 'gray.400' }}>
+              <Text color="gray.500" _dark={{ color: "gray.400" }}>
                 最新のトレンドを常にチェックし、いち早くお届けします
               </Text>
             </Card.Body>
@@ -155,11 +177,11 @@ export default function Home() {
             textAlign="center"
             p={6}
             bg="white"
-            _dark={{ bg: 'gray.800' }}
+            _dark={{ bg: "gray.800" }}
             shadow="md"
             borderRadius="lg"
             transition="all 0.2s"
-            _hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
+            _hover={{ shadow: "lg", transform: "translateY(-2px)" }}
           >
             <Card.Body>
               <Box
@@ -171,10 +193,17 @@ export default function Home() {
               >
                 <FiShield />
               </Box>
-              <Heading size="md" mb={3} color="gray.800" _dark={{ color: 'gray.100' }}>
+              <Heading
+                size="md"
+                mb={3}
+                color="gray.800"
+                _dark={{ color: "gray.100" }}
+              >
                 安心の品質保証
               </Heading>
-              <Text color="gray.500" _dark={{ color: 'gray.400' }}>全ての商品に品質保証がついています</Text>
+              <Text color="gray.500" _dark={{ color: "gray.400" }}>
+                全ての商品に品質保証がついています
+              </Text>
             </Card.Body>
           </Card.Root>
         </SimpleGrid>
@@ -182,12 +211,20 @@ export default function Home() {
 
       {/* 注目商品セクション */}
       <Container maxW="container.xl" py={16}>
-        <Heading size="xl" mb={8} textAlign="center" color="gray.800" _dark={{ color: 'gray.100' }}>
+        <Heading
+          size="xl"
+          mb={8}
+          textAlign="center"
+          color="gray.800"
+          _dark={{ color: "gray.100" }}
+        >
           注目の商品
         </Heading>
 
         {loading ? (
-          <Text textAlign="center" color="gray.500">読み込み中...</Text>
+          <Text textAlign="center" color="gray.500">
+            読み込み中...
+          </Text>
         ) : (
           <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={6}>
             {featuredProducts.map((product) => (
@@ -195,11 +232,11 @@ export default function Home() {
                 key={product.id}
                 overflow="hidden"
                 bg="white"
-                _dark={{ bg: 'gray.800' }}
+                _dark={{ bg: "gray.800" }}
                 shadow="md"
                 borderRadius="lg"
                 transition="all 0.2s"
-                _hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
+                _hover={{ shadow: "lg", transform: "translateY(-2px)" }}
               >
                 <Image
                   src={product.imageUrl || "/placeholder.png"}
@@ -208,17 +245,27 @@ export default function Home() {
                   objectFit="cover"
                 />
                 <Card.Body>
-                  <Heading size="md" mb={2} color="gray.800" _dark={{ color: 'gray.100' }}>
+                  <Heading
+                    size="md"
+                    mb={2}
+                    color="gray.800"
+                    _dark={{ color: "gray.100" }}
+                  >
                     {product.title}
                   </Heading>
-                  <Text color="gray.500" _dark={{ color: 'gray.400' }} mb={4} lineClamp={2}>
+                  <Text
+                    color="gray.500"
+                    _dark={{ color: "gray.400" }}
+                    mb={4}
+                    lineClamp={2}
+                  >
                     {product.description}
                   </Text>
                   <Text
                     fontSize="2xl"
                     fontWeight="bold"
                     color="gray.900"
-                    _dark={{ color: 'gray.100' }}
+                    _dark={{ color: "gray.100" }}
                     mb={4}
                   >
                     ¥{product.price.toLocaleString()}
@@ -229,16 +276,18 @@ export default function Home() {
                   >
                     <Box
                       bg="gray.900"
-                      _dark={{ bg: 'gray.100' }}
+                      _dark={{ bg: "gray.100" }}
                       color="white"
                       py={2}
                       textAlign="center"
                       fontWeight="semibold"
                       borderRadius="md"
                       transition="all 0.2s"
-                      _hover={{ bg: "gray.800", _dark: { bg: 'gray.200' } }}
+                      _hover={{ bg: "gray.800", _dark: { bg: "gray.200" } }}
                     >
-                      <Text color="white" _dark={{ color: 'gray.900' }}>詳細を見る</Text>
+                      <Text color="white" _dark={{ color: "gray.900" }}>
+                        詳細を見る
+                      </Text>
                     </Box>
                   </Link>
                 </Card.Body>
@@ -259,9 +308,9 @@ export default function Home() {
               display="inline-block"
               border="1px solid"
               borderColor="gray.900"
-              _dark={{ borderColor: 'gray.100' }}
+              _dark={{ borderColor: "gray.100" }}
               color="gray.900"
-              _hover={{ bg: "gray.100", _dark: { bg: 'gray.800' } }}
+              _hover={{ bg: "gray.100", _dark: { bg: "gray.800" } }}
               px={6}
               py={3}
               fontSize="lg"
@@ -269,7 +318,9 @@ export default function Home() {
               borderRadius="md"
               transition="all 0.2s"
             >
-              <Text color="gray.900" _dark={{ color: 'gray.100' }}>すべての商品を見る</Text>
+              <Text color="gray.900" _dark={{ color: "gray.100" }}>
+                すべての商品を見る
+              </Text>
             </Box>
           </Link>
         </Box>
